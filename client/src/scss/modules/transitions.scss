@@ -1,0 +1,49 @@
+.fade-enter, .fade-fast-enter, .fade-appear, .fade-fast-appear, .fade-exit{
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+}
+.fade-enter-done{
+    opacity: 1;
+    transition: opacity 2000ms ease-in;
+}
+.fade-fast-enter-done{
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+}
+header {
+    .fade-enter-done{
+        transition: opacity 1000ms ease-in;
+    }
+}
+
+.profil{
+    h1{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+.profil .moveX-enter-done{
+    transform: translateX(0%);
+    transition: all 0.5s ease-in;
+    opacity: 1;
+}
+
+
+@keyframes slowMoveY {
+    from {
+        top: 0;
+    }
+    50%{
+        top: -10px;
+    }
+    to{
+        top: 0px;
+    }
+}
+
+.slowMoveY {
+    -webkit-animation-name: 'slowMoveY';
+    animation-name: 'slowMoveY';
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }

@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fs": "^0.0.1-security",
+    "nodemailer": "^4.6.8"
+  },
+  "scripts": {
+    "start": "npm-run-all -p server client",
+    "server": "node server.js",
+    "client": "node start-client.js"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.3"
+  }
+}

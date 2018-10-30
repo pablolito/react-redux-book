@@ -1,0 +1,414 @@
+// reset project
+body{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: $default-color;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+p{
+    padding: 0;
+    margin: 0;
+}
+a, a:hover, a:visited{
+    color: $default-color;
+}
+ul, li{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content-center{
+    margin: 0 auto;
+    width: $global-content-center;
+    display: block;
+}
+
+.va-middle{
+    vertical-align: middle;
+}
+.vh-100{
+    height: 100vh;
+}
+a{
+    text-decoration: none;
+}
+
+.icon-loader{
+    display: inline-block;
+    fill: #000;
+}
+
+.icon-lab, .icon-meter, .icon-hour-glass, .icon-rocket{
+    width: 50px;
+    height: 50px;
+    fill: #FFF;
+}
+.icon-github{
+    width: 24px;
+    height: 24px;
+    fill: #FFF;
+}
+.icon-arrow-up{
+    transform: rotate(180deg);
+    width: 30px;
+    height: 30px;
+    fill: #FFF;
+}
+
+.loader-container{
+    width: 100%;
+    text-align: center;
+    @include vertical-align(absolute);
+    z-index: 10;
+    .error{
+        font-size: 2rem;
+    }
+    .icon-loader{
+        display: inline-block;
+        animation: spin-loader 1s linear infinite;
+        width: 4rem;
+        height: 4rem;
+    }
+}
+@keyframes spin-loader { 100% { transform:rotate(360deg); } }
+
+
+// generic class
+.error{
+    color: $error-color;
+}
+.warning{
+    color: $warning-color;
+}
+.ttl{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.ttl-bis{
+    font-family: 'Roboto', sans-serif;
+}
+
+.ttl, .ttl-bis{
+    &.small{
+        font-size: 1rem;
+    }
+    &.medium{
+        font-size: 2rem;
+    }
+    &.big{
+        font-size: 4rem;
+    }
+}
+
+.btn{
+    padding: 0.5rem;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    
+    &.btn-primary{
+        background-color: $primary-color;
+        transition: background-color 200ms ease-in;
+        color: #FFF;
+        &:hover{
+            background-color: $primary-color;
+        }
+        &.active{
+            background-color: $default-color;
+        }
+    }
+    &.btn-secondary{
+        background-color: $secondary-color;
+        transition: background-color 200ms ease-in;
+        color: #FFF;
+        &:hover{
+            background-color: $secondary-color-lighten;
+        }
+
+    }
+}
+
+.small-line{
+    width: 70px;
+    height: 4px;
+    background-color: $default-color-lighten;
+    margin-top: 1rem;
+}
+
+.backtotop{
+    position: fixed;
+    bottom: 3%;
+    right: 3%;
+    z-index: 100;
+    background-color: $default-color-lighten;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+// component
+header{
+    width: 100%;
+    padding: 1rem;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid #ccc;
+    position: fixed;
+    &.home{
+        background-color: rgba(255, 255, 255, $alpha: 0);
+        transition: all 0.2s ease-in;
+        border: none;
+        a, span{
+            color: #FFF;
+        }
+    }
+    &.fading-on{
+        background-color: rgba(255, 255, 255, $alpha: 1);
+        transition: all ease-in 0.2s;
+        color: $default-color;
+        border-bottom: 1px solid #ccc;
+        a, span{
+            color: $default-color;
+        }
+        .icon-github{
+            fill: $default-color;
+        }
+        .logo{
+            color: $default-color;
+            font-size: 1.5rem;
+            transition: all ease-in 0.2s;
+            font-family: 'Fira Sans', sans-serif;
+            span{
+                font-size: 1.5rem;
+            }
+            
+        }
+    }
+    .logo{
+        font-size: 2rem;
+    }
+    
+    nav{
+        li{
+            margin-right: 1rem;
+            font-size: 1.1rem;
+            &:last-child{
+                margin-right: 0;
+            }
+            span{
+                cursor: pointer;
+                padding-bottom: 5px;
+                border-bottom: 3px solid transparent;
+                transition: border 0.5s ease-in;
+                &:hover, &.active{
+                    border-color: $default-color;
+                }
+            }
+        }
+    }
+}
+
+// profil section
+.bgd-profil{
+    height: 100vh;
+}
+.project{
+    background-color: #F1F1F1;
+}
+
+// about
+.about-me{
+    .ttl-bis{
+        font-size: 1.5rem;
+    }
+}
+.bar{
+    background-color: $default-color-lighten;
+    font-size: 1rem;
+    width: 100%;
+    height: 30px;
+    position: relative;
+    margin-bottom: 1rem;
+    .fill{
+        position: absolute;
+        width: 0;
+        height: 30px;
+        background-color: $primary-color;
+        z-index: 1;
+        transition: width 1s ease-in;
+    }
+    .caption, .perc{
+        position: absolute;
+        padding: 5px;
+        height: 30px;
+        line-height: 22px;
+        color: #FFF;
+        z-index: 2
+    }
+    .caption{
+        background-color: $primary-color;
+        min-width: 100px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .perc{
+        right: 0;
+        color: #000;
+    }
+}
+.xp-item{
+    text-align: center;
+    width: 300px;
+    padding: 1rem;
+    .hexagon-wrapper {
+        text-align: center;
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1rem;
+        .icon-wraper{
+            width: 100%;
+            z-index: 1;
+            @include vertical-align(absolute);
+        }
+      }
+      
+    .hexagon {
+        height: 100%;
+        width: calc(100% * 0.57735);
+        display: inline-block;
+        background-color: $primary-color;
+        &:before {
+            position: absolute;
+            top: 0;
+            right: calc((100% / 2) - ((100% * 0.57735) / 2));
+            background-color: inherit;
+            height: inherit;
+            width: inherit;
+            content: '';
+            transform: rotateZ(60deg);
+          }
+          &:after {
+            position: absolute;
+            top: 0;
+            right: calc((100% / 2) - ((100% * 0.57735) / 2));
+            background-color: inherit;
+            height: inherit;
+            width: inherit;
+            content: '';
+            transform: rotateZ(-60deg);
+          }
+    }
+}
+
+.profil{
+    color: #FFF;
+    .text-container{
+        @include vertical-align(absolute);
+        left: 15%;
+        width: 650px;
+        h1{
+            strong{
+                color: $default-color;
+                font-weight: 600; 
+            }
+            margin-bottom: 1rem;
+        }
+        h2{
+            display: inline-block;
+        }
+    }
+    .see-more{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        text-align: center;
+        span{
+            position: relative;
+            .icon-arrow-down{
+                width: 30px;
+                height: 30px;
+                fill: #FFF;
+                cursor: pointer;
+            }
+        }
+        
+    }
+}
+
+.post-cover{
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    .contain{
+        position: absolute;
+        bottom: 10%;
+        left: 10%;
+        z-index: 10;
+        color: #FFF;
+    }
+}
+
+.container-page{
+    width: 75%;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    margin: 0 auto;
+    padding: 3rem;
+}
+
+
+// book section
+.mea-project{
+    position: relative;
+    filter: grayscale(100%);
+    transition: filter 800ms ease-in;
+    overflow: hidden;
+    max-height: 300px;
+    img{
+        transition: all 0.3s ease-in;
+        width: 100%;
+    }
+    &:hover{
+        filter: none;
+        img{
+            transform: scale(1.1);
+        }
+    }
+    h3, .year{
+        color: #FFF;
+    }
+    .year{
+        background-color: #FFF;
+        color: $default-color;
+        padding: 0.5rem;
+        display: inline-block;
+        margin-bottom: 2rem;
+    }
+    h3{
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 2px $default-color;
+    }
+    .contain{
+        position: absolute;
+        display: block;
+        top: 5%;
+        left: 5%;
+        z-index: 1;
+    }
+}
+
+.contact{
+    padding-bottom: 500px;
+}
