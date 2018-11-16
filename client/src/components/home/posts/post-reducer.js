@@ -31,8 +31,6 @@ export const postReducer = (state={isLoading: true}, action) => {
         return {...state, payload : action.payload, isInError: false, isLoading: false}
         case AT_GLOBAL.IS_IN_ERROR :
         return {...state, isInError: true, isLoading: false}
-        case AT_GLOBAL.IS_LOADING :
-        return {...state, isLoading: true}
         default:
         return state;
     }
@@ -44,8 +42,6 @@ export const postAssetReducer = (state={isLoading: true}, action) => {
         return {...state, payload : action.payload, isInError: false, isLoading: false}
         case AT_GLOBAL.IS_IN_ERROR :
         return {...state, isInError: true, isLoading: false}
-        case AT_GLOBAL.IS_LOADING :
-        return {...state, isLoading: true}
         default:
         return state;
     }
