@@ -8,6 +8,10 @@ const utils = {
     scrollTop: () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop
         return scrollTop;
+    },
+    formatTitleUrl: (str) => {
+        const formatedTitleUrl = str.toLowerCase().replace(' ','-');
+        return formatedTitleUrl;
     }
 }
 

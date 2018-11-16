@@ -1,20 +1,27 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { withRouter } from "react-router";
 import { connect } from 'react-redux'
 import { debounce } from 'lodash'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { bindActionCreators } from 'redux'
-import { sendHeaderHeight, enableBacktotop, goToSection } from './ui-action'
+import { enableBacktotop } from './ui-action'
 import utils from '../../utils'
 import conf from '../../conf'
-
 
 class Header extends Component {
     constructor(props) {
         super(props)
-        this.state = { enableFadingBar: false }
+        this.state = { enableFadingBar: false, activeItemId: 'profil' }
+        this.goBack = this.goBack.bind(this);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.activeSection !== prevProps.activeSection) {
+            this.setState({ activeItemId: this.props.activeSection });
+        }
     }
     componentDidMount() {
+
         window.addEventListener("scroll", debounce((e) => {
             if (utils.scrollTop() > this.refHeader.clientHeight) {
                 if (!this.state.enableFadingBar) {
@@ -32,8 +39,18 @@ class Header extends Component {
         }, 100));
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     goToSection(id) {
-        this.props.goToSection(id);
+        if (document.getElementById(id)) {
+            window.scrollTo({
+                top: document.getElementById(id).offsetTop - conf.headerHeightFixed, // to do : find a way to store section ref 
+                behavior: 'smooth'
+            })
+            this.setState({ activeItemId: id })
+        }
     }
 
     render() {
@@ -44,38 +61,42 @@ class Header extends Component {
                 <TransitionGroup appear={true}>
                     <CSSTransition classNames="fade" timeout={0}>
                         <div className="d-flex justify-content-between align-items-center">
-                            <div className="logo">
-                                {<Link to="/">
-                                    <span>{`${'<'}`}</span>MaximeFalguier<span>{`${'/>'}`}</span>
-                                </Link>}
-                            </div>
-                            <nav>
-                                <ul className="d-flex align-items-center">
-                                    <li>
-                                        <span className={(this.props.scrollToSection === 'profil' || this.props.scrollToSection === null) ? 'active' : ''}
-                                            onClick={() => this.goToSection('profil')}>Home</span>
-                                    </li>
-                                    <li>
-                                        <span className={(this.props.scrollToSection === 'about') ? 'active' : ''}
-                                            onClick={() => this.goToSection('about')}>Profil</span>
-                                    </li>
-                                    <li>
-                                        <span className={(this.props.scrollToSection === 'project') ? 'active' : ''}
-                                            onClick={() => this.goToSection('project')}>Réalisations</span>
-                                    </li>
-                                    <li>
-                                        <span className={(this.props.scrollToSection === 'contact') ? 'active' : ''}
-                                            onClick={() => this.goToSection('contact')}>Contact</span>
-                                    </li>
-                                    <li>
-                                        <a target="_blank" href="https://github.com/pablolito">
-                                            <svg className="icon icon-github">
-                                                <use xlinkHref="/images/sprite-icons.svg#icon-github" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            {(this.props.router.location.pathname === "/") ?
+                                <div className="logo">
+                                    {<Link to="/">
+                                        <span>{`${'<'}`}</span>ReactReduxBook<span>{`${'/>'}`}</span>
+                                    </Link>}
+                                </div>
+                                : <div></div>
+                            }
+                            {(this.props.router.location.pathname === "/") ?
+                                <nav>
+                                    <ul className="d-flex align-items-center">
+                                        <li className="d-none d-md-block">
+                                            <span className={(this.state.activeItemId === 'about') ? 'active' : ''}
+                                                onClick={() => this.goToSection('about')}>Profil</span>
+                                        </li>
+                                        <li className="d-none d-md-block">
+                                            <span className={(this.state.activeItemId === 'project') ? 'active' : ''}
+                                                onClick={() => this.goToSection('project')}>Réalisations</span>
+                                        </li>
+                                        <li className="d-none d-md-block">
+                                            <span className={(this.state.activeItemId === 'contact') ? 'active' : ''}
+                                                onClick={() => this.goToSection('contact')}>Contact</span>
+                                        </li>
+                                        <li>
+                                            <a rel="noopener noreferrer" target="_blank" href="https://github.com/pablolito">
+                                                <svg className="icon icon-github">
+                                                    <use xlinkHref="/images/sprite-icons.svg#icon-github" />
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                : <div>
+                                    <div onClick={this.goBack} className="close"></div>
+                                </div>
+                            }
                         </div>
                     </CSSTransition>
                 </TransitionGroup>
@@ -86,11 +107,10 @@ class Header extends Component {
 function mapStateToProps(state) {
     return {
         router: state.router,
-        scrollToSection: state.ui.scrollToSection
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ sendHeaderHeight, enableBacktotop, goToSection }, dispatch)
+    return bindActionCreators({ enableBacktotop }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

@@ -5,14 +5,10 @@ import { bindActionCreators } from 'redux'
 import PostsListItem from './post-list-item'
 import FilterPosts from './filter-posts-container'
 import { Link } from 'react-router-dom'
-import SectionTitle from '../../shared/section-title';
-import conf from '../../../conf'
+import utils from '../../../utils'
+import SectionTitle from '../../shared/section-title'
 
 class PostsList extends Component {
-    constructor(props){
-        super(props);
-        this.sectionRef = React.createRef();
-    }
     componentDidMount() {
         this.props.getALLPosts();
     }
@@ -36,15 +32,8 @@ class PostsList extends Component {
                 postsList = this.props.postsList.payload.items;
             }    
         }
-        if (this.props.scrollToSection && this.sectionRef.current && this.props.scrollToSection === this.sectionRef.current.id) {
-            window.scrollTo({
-                top: this.sectionRef.current.offsetTop - conf.headerHeightFixed,
-                behavior: 'smooth'
-            })
-
-        }
         return (
-            <section id="project" ref={this.sectionRef} className="project pt-4 pb-4">
+            <section id="project" className="project pt-4 pb-4">
                 <SectionTitle data={{ title: "Découvrir mes derniers projets" }} />
                 <FilterPosts />
                 {
@@ -52,8 +41,8 @@ class PostsList extends Component {
                         <div className="d-flex flex-wrap w-75 m-auto">
                             {postsList.map((post) => {
                                 return (
-                                    <div key={post.sys.id} className="w-50">
-                                        <Link to={`/post/${post.sys.id}`}>
+                                    <div key={post.sys.id} className="item-project">
+                                        <Link to={`/projet/${post.sys.id}/${utils.formatTitleUrl(post.fields.title)}`}>
                                             <PostsListItem asset={this.getAssetUrl(post.fields.pictures[0].sys.id)} data={post.fields} />
                                         </Link>
                                     </div>
@@ -70,8 +59,7 @@ class PostsList extends Component {
 function mapStateToProps(state) {
     return {
         postsList: state.postsList,
-        filteredPostsList: state.filteredPostsList.filterPost,
-        scrollToSection : state.ui.scrollToSection
+        filteredPostsList: state.filteredPostsList.filterPost
     }
 }
 

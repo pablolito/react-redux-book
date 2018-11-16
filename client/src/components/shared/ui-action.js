@@ -1,13 +1,5 @@
 import { AT_UI } from '../actions-types'
 
-export const goToSection = (sectionId) => {
-    return function (dispatch) {
-        dispatch({
-            type: AT_UI.SCROLL_TO_SECTION,
-            payload: sectionId
-        })
-    }
-}
 export const sendHeaderHeight = (headerHeight) => {
     return function (dispatch) {
         dispatch({

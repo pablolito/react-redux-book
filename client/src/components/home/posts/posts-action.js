@@ -33,22 +33,19 @@ export const getPost = (id) => {
                     type: AT_POST.GET_POST_ASSETS,
                     payload: response.data
                 })
+            }).catch((error) => {
+                dispatch({
+                    type: AT_GLOBAL.IS_IN_ERROR,
+                    payload: error
+                })
+            })
+        }).catch((error) => {
+            dispatch({
+                type: AT_GLOBAL.IS_IN_ERROR,
+                payload: error
             })
         })
     }
-}
-export const resetPost = () => {
-    return function (dispatch) {
-        dispatch({
-            type: AT_POST.READ_POST,
-            payload: null
-        })
-        dispatch({
-            type: AT_POST.GET_POST_ASSETS,
-            payload: null
-        })
-    }
-
 }
 
 export const getFilteredPosts = (postsListItems, id) => {

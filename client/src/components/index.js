@@ -5,21 +5,34 @@ import Post from './post/post-container'
 import NotFound from './shared/not-found'
 import Header from './shared/header'
 import Backtotop from './shared/backtotop'
+import Footer from './shared/footer'
 import { connect } from 'react-redux'
 
-class App extends Component {
 
+class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {activeSection:null}
+  }
+  callbackActiveSection(id){
+    this.setState({activeSection:id})
+  }
   render() {
     return (
       <div>
-        <Header></Header>
+        <Header activeSection={this.state.activeSection}></Header>
         <main>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/post/:id" component={Post} />
+            <Route exact path="/" render={() => ( <Home activeSection={(id)=>this.callbackActiveSection(id)}/> )} />
+            <Route exact path="/projet/:id/:title" component={Post} />
             <Route component={NotFound} />
           </Switch>
           <Backtotop />
+          {(this.props.router === "/") ? 
+            <Footer />
+            : null
+          }
+          
         </main>
       </div>
     )

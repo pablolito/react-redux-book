@@ -30,6 +30,7 @@
     "react-google-recaptcha": "^1.0.4",
     "react-inview-monitor": "^2.2.0",
     "react-markdown": "^4.0.3",
+    "react-recaptcha-v3": "^1.0.2",
     "react-redux": "5.0.7",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",

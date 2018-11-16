@@ -8,12 +8,16 @@ const SectionTitle = ({ data }) => {
 
                 <InViewMonitor
                     classNameNotInView='invisible'
-                    classNameInView='animated fadeInUp w-100'>
+                    classNameInView='animated fadeInUp w-100'
+                    intoViewMargin='0%'>
                     <h2 className="ttl medium text-uppercase">{data.title}</h2>
                 </InViewMonitor>
 
 
-                <InViewMonitor classNameNotInView='invisible' classNameInView='animated fadeInLeft'>
+                <InViewMonitor 
+                    classNameNotInView='invisible' 
+                    classNameInView='animated fadeInLeft'
+                    intoViewMargin='0%'>
                     <div className="small-line"></div>
                 </InViewMonitor>
 

@@ -25,19 +25,27 @@ export const filteredPostsListReducer = (state=[], action) => {
 }
 
 
-export const postReducer = (state=null, action) => {
+export const postReducer = (state={isLoading: true}, action) => {
     switch(action.type){
         case AT_POST.READ_POST :
-        return action.payload
+        return {...state, payload : action.payload, isInError: false, isLoading: false}
+        case AT_GLOBAL.IS_IN_ERROR :
+        return {...state, isInError: true, isLoading: false}
+        case AT_GLOBAL.IS_LOADING :
+        return {...state, isLoading: true}
         default:
         return state;
     }
 }
 
-export const postAssetReducer = (state=null, action) => {
+export const postAssetReducer = (state={isLoading: true}, action) => {
     switch(action.type){
         case AT_POST.GET_POST_ASSETS :
-        return action.payload
+        return {...state, payload : action.payload, isInError: false, isLoading: false}
+        case AT_GLOBAL.IS_IN_ERROR :
+        return {...state, isInError: true, isLoading: false}
+        case AT_GLOBAL.IS_LOADING :
+        return {...state, isLoading: true}
         default:
         return state;
     }

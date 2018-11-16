@@ -12,7 +12,7 @@ const XpItem = (props) => {
                     </svg>
                 </div>
             </div>
-            <h3 className="ttl text-center">{data.title}</h3>
+            <h3 className="ttl text-center mb-2 font-weight-bold">{data.title}</h3>
             <p className="text-center">{data.description}</p>
         </div>
     )

@@ -7,6 +7,7 @@ export const Captcha = (props) => {
       <ReCAPTCHA
         sitekey={'6LdAT3UUAAAAAEcqLxpyUTeW6u14Sfx1qvLica8x'}
         onChange={props.input.onChange}
+        theme='dark'
       />
       </div>
     )
