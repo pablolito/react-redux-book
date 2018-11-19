@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getALLPosts } from './posts-action'
+import { getPosts } from './posts-action'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PostsListItem from './post-list-item'
@@ -10,8 +10,8 @@ import SectionTitle from '../../shared/section-title'
 
 class PostsList extends Component {
     componentDidMount() {
-        if(this.props.postsList.length === 0)
-            this.props.getALLPosts();
+        if (!this.props.postsList.payload)
+            this.props.getPosts();
     }
 
     getAssetUrl(itemId) {
@@ -23,33 +23,49 @@ class PostsList extends Component {
             }
         });
     }
-
-    render() {
-        let postsList;
-        if (this.props.filteredPostsList && this.props.filteredPostsList.length > 0) {
-            postsList = this.props.filteredPostsList;
+    getFilterList() {
+        const filterList = [];
+        this.props.postsList.payload.items.map((post) => {
+            return post.fields.tags.map((tag) => {
+                if (filterList.indexOf(tag) === -1) {
+                    filterList.push(tag);
+                }
+            })
+        })
+        return filterList;
+    }
+    renderPosts() {
+        let postListItems;
+        if (this.props.postsList.filter) {
+            postListItems = this.props.postsList.payload.items.filter(post => post.fields.tags.indexOf(this.props.postsList.filter) !== -1);
         } else {
-            if(this.props.postsList && this.props.postsList.payload){
-                postsList = this.props.postsList.payload.items;
-            }    
+            postListItems = this.props.postsList.payload.items;
         }
+        return (
+            <div>
+                <FilterPosts filterList={this.getFilterList()} />
+                <div className="d-flex flex-wrap w-75 m-auto">
+                    {postListItems.map((post) => {
+                        return (
+                            <div key={post.sys.id} className="item-project">
+                                <Link to={`/projet/${post.sys.id}/${utils.formatTitleUrl(post.fields.title)}`}>
+                                    <PostsListItem asset={this.getAssetUrl(post.fields.pictures[0].sys.id)} data={post.fields} />
+                                </Link>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        );
+    }
+    render() {
+        console.log("render");
         return (
             <section id="project" className="project pt-4 pb-4">
                 <SectionTitle data={{ title: "Découvrir mes derniers projets" }} />
-                <FilterPosts />
                 {
-                    (postsList) ?
-                        <div className="d-flex flex-wrap w-75 m-auto">
-                            {postsList.map((post) => {
-                                return (
-                                    <div key={post.sys.id} className="item-project">
-                                        <Link to={`/projet/${post.sys.id}/${utils.formatTitleUrl(post.fields.title)}`}>
-                                            <PostsListItem asset={this.getAssetUrl(post.fields.pictures[0].sys.id)} data={post.fields} />
-                                        </Link>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                    (this.props.postsList.payload && !this.props.postsList.isLoading) ?
+                        this.renderPosts()
                         : null
                 }
             </section>
@@ -58,14 +74,14 @@ class PostsList extends Component {
 }
 
 function mapStateToProps(state) {
+    //console.log(state);
     return {
         postsList: state.postsList,
-        filteredPostsList: state.filteredPostsList.filterPost
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getALLPosts }, dispatch)
+    return bindActionCreators({ getPosts }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsList)

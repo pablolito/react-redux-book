@@ -28,7 +28,7 @@ class App extends Component {
             <Route component={NotFound} />
           </Switch>
           <Backtotop />
-          {(this.props.router === "/") ? 
+          {(this.props.router.location.pathname === "/") ? 
             <Footer />
             : null
           }

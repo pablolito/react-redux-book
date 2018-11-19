@@ -6154,6 +6154,11 @@ a {
   height: 50px;
   fill: #FFF; }
 
+.icon-fr {
+  width: 24px;
+  height: 24px;
+  vertical-align: text-bottom; }
+
 .icon-github {
   width: 24px;
   height: 24px;
@@ -6477,6 +6482,10 @@ footer {
     height: 135px;
     transform: rotate(-190deg);
     background-color: #4dee95; }
+  footer .abs-text {
+    position: absolute;
+    width: 100%;
+    bottom: 2rem; }
 
 @media (max-width: 767.98px) {
   .ttl.big, .ttl-bis.big {

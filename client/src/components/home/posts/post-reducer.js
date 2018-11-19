@@ -1,24 +1,15 @@
 import {AT_POST, AT_GLOBAL} from '../../actions-types'
 
-
-
-export const postsListReducer = ( state=[], action) => {
+export const postsListReducer = ( state={payload: null, filter:''}, action) => {
     switch(action.type){
-        case AT_GLOBAL.IS_LOADING :
+        case AT_POST.IS_LOADING_POSTS :
         return {...state, isLoading: true}
-        case AT_POST.READ_ALL_POST :
+        case AT_POST.READ_POSTS :
         return {...state, payload : action.payload, isInError:false, isLoading: false}
         case AT_GLOBAL.IS_IN_ERROR :
         return {...state, isInError: true, isLoading: false}
-        default :
-        return state
-    }
-}
-
-export const filteredPostsListReducer = (state=[], action) => {
-    switch(action.type){
-        case AT_POST.READ_FILTERED_POST :
-        return action.payload
+        case AT_POST.CURRENT_FILTERED_POST :
+        return {...state, filter: action.filter}
         default :
         return state
     }
@@ -27,7 +18,7 @@ export const filteredPostsListReducer = (state=[], action) => {
 
 export const postReducer = (state={}, action) => {
     switch(action.type){
-        case AT_GLOBAL.IS_LOADING :
+        case AT_POST.IS_LOADING_POST :
         return {...state, isLoading: true}
         case AT_POST.READ_POST :
         return {...state, payload : action.payload, isInError: false, isLoading: false}
@@ -37,14 +28,3 @@ export const postReducer = (state={}, action) => {
         return state;
     }
 }
-
-// export const postAssetReducer = (state={isLoading: true}, action) => {
-//     switch(action.type){
-//         case AT_POST.GET_POST_ASSETS :
-//         return {...state, payload : action.payload, isInError: false, isLoading: false}
-//         case AT_GLOBAL.IS_IN_ERROR :
-//         return {...state, isInError: true, isLoading: false}
-//         default:
-//         return state;
-//     }
-// }
