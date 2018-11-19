@@ -8,6 +8,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Trianglify from 'react-trianglify'
 import ReactMarkdown from 'react-markdown'
 import conf from '../../../conf'
+import { clearTimeout } from 'timers';
 
 class Profil extends Component {
     constructor(props) {
@@ -20,8 +21,8 @@ class Profil extends Component {
         }
     }
     componentDidMount() {
-        this.props.getProfil();
-        
+        if(! this.props.profil)
+            this.props.getProfil();
         window.addEventListener("resize", debounce((e) => {
             this.setState({
                 screenWidth: window.innerWidth,
@@ -38,21 +39,20 @@ class Profil extends Component {
     }
     sentanceIsLoaded = (e) => {
         setTimeout(() => {
-            this.setState({ displaySeeMore: e });
-        }, 1000)
+                this.setState({ displaySeeMore: e });
+            }, 1000)
     }
     renderProfil() {
+        
         return (
             <div className="text-cover">
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <div className="text-container">
                         <TransitionGroup component={null} appear={true}>
                             <CSSTransition timeout={2000}
-                                onEntered={() => {
-                                    setTimeout(() => {
-                                        this.setState({ profilTextAnimComplete: true })
-                                    }, 500)
-                                }}
+                                onEntered={() => { setTimeout(() => {
+                                    this.setState({ profilTextAnimComplete: true })
+                                }, 500) }}
                                 classNames="moveX">
                                 <h1 className="ttl-bis big">
                                     <ReactMarkdown source={this.props.profil.items[0].fields.profilText0} />

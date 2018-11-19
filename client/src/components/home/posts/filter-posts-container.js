@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 
 class FilterPosts extends Component {
     renderTagsList() {
-
         return (
             <div>
                 <div className={`btn btn-primary mr-2 ${(this.props.currentFilterId === '' || !this.props.currentFilterId ? 'active' : '')}`}
@@ -38,7 +37,6 @@ class FilterPosts extends Component {
 
     }
     render() {
-        //console.log(this.props.postsList);
         return (
             (this.props.postsList && this.props.postsList.payload) ?
                 <div className="d-flex justify-content-center flex-wrap mb-4">

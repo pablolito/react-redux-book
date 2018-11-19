@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { getPost } from '../home/posts/posts-action'
+import { getPost, resetPost } from '../home/posts/posts-action'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Loader from '../shared/loader'
@@ -12,41 +12,43 @@ class Post extends Component {
         this.props.getPost(this.props.match.params.id);
     }
     componentWillUnmount() {
-        //this.props.resetPost();
+        this.props.resetPost();
     }
 
     renderPost() {
-        const { post, postAsset } = this.props;
-        //console.log('postasset', postAsset);
-        const assetUrl = postAsset.payload.fields.file.url;
+        const { post } = this.props;
+        const postData = post.payload.data;
+        const postAssetsData = post.payload.assetsData;
         return <div>
-            <div className="post-cover" style={{ 'backgroundImage': `url(${assetUrl})` }}>
+            <div className="post-cover" style={{ 'backgroundImage': `url(${postAssetsData.fields.file.url})` }}>
                 <div className="contain">
-                    <div className="ttl big">{post.payload.fields.title}</div>
-                    <div className="ttl medium">{post.payload.fields.year}</div>
+                    <div className="ttl big">{postData.fields.title}</div>
+                    <div className="ttl medium">{postData.fields.year}</div>
                 </div>
             </div>
             <div className="container-page">
-                {post.payload.fields.description}
+                {postData.fields.description}
             </div>
         </div>
 
     }
     render() {
-        if (this.props.post.isLoading || this.props.postAsset.isLoading) {
+        if (this.props.post.isLoading) {
             return <Loader />
         }
         return (
             <div>
-                {(this.props.post && this.props.postAsset && !this.props.post.isInError && !this.props.postAsset.isInError) ?
+                {(this.props.post.payload) ?
                     this.renderPost()
                 : 
+                (this.props.post.isInError) ?
                 <div className="vh-100 d-flex justify-content-center align-items-center">
                     <div>
                     <h1>Oups !!!</h1>
                     <h3>Erreur lors du chargement des données !!!</h3>
                     </div>
                 </div>
+                : null
                 }
             </div>
         )
@@ -55,13 +57,12 @@ class Post extends Component {
 
 function mapStateToProps(state) {
     return {
-        post: state.post,
-        postAsset: state.postAsset
+        post: state.post
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getPost }, dispatch)
+    return bindActionCreators({ getPost, resetPost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

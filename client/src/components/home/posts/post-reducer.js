@@ -25,8 +25,10 @@ export const filteredPostsListReducer = (state=[], action) => {
 }
 
 
-export const postReducer = (state={isLoading: true}, action) => {
+export const postReducer = (state={}, action) => {
     switch(action.type){
+        case AT_GLOBAL.IS_LOADING :
+        return {...state, isLoading: true}
         case AT_POST.READ_POST :
         return {...state, payload : action.payload, isInError: false, isLoading: false}
         case AT_GLOBAL.IS_IN_ERROR :
@@ -36,13 +38,13 @@ export const postReducer = (state={isLoading: true}, action) => {
     }
 }
 
-export const postAssetReducer = (state={isLoading: true}, action) => {
-    switch(action.type){
-        case AT_POST.GET_POST_ASSETS :
-        return {...state, payload : action.payload, isInError: false, isLoading: false}
-        case AT_GLOBAL.IS_IN_ERROR :
-        return {...state, isInError: true, isLoading: false}
-        default:
-        return state;
-    }
-}
+// export const postAssetReducer = (state={isLoading: true}, action) => {
+//     switch(action.type){
+//         case AT_POST.GET_POST_ASSETS :
+//         return {...state, payload : action.payload, isInError: false, isLoading: false}
+//         case AT_GLOBAL.IS_IN_ERROR :
+//         return {...state, isInError: true, isLoading: false}
+//         default:
+//         return state;
+//     }
+// }

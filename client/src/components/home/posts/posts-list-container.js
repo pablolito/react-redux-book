@@ -10,7 +10,8 @@ import SectionTitle from '../../shared/section-title'
 
 class PostsList extends Component {
     componentDidMount() {
-        this.props.getALLPosts();
+        if(this.props.postsList.length === 0)
+            this.props.getALLPosts();
     }
 
     getAssetUrl(itemId) {
