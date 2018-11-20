@@ -8,7 +8,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Trianglify from 'react-trianglify'
 import ReactMarkdown from 'react-markdown'
 import conf from '../../../conf'
-import { clearTimeout } from 'timers';
 
 class Profil extends Component {
     constructor(props) {
@@ -21,7 +20,7 @@ class Profil extends Component {
         }
     }
     componentDidMount() {
-        if(! this.props.profil)
+        if (!this.props.profil.payload)
             this.props.getProfil();
         window.addEventListener("resize", debounce((e) => {
             this.setState({
@@ -39,29 +38,32 @@ class Profil extends Component {
     }
     sentanceIsLoaded = (e) => {
         setTimeout(() => {
-                this.setState({ displaySeeMore: e });
-            }, 1000)
+            this.setState({ displaySeeMore: e });
+        }, 1000)
+    }
+    displaySentenceIncrement() {
+        setTimeout(() => {
+            this.setState({ profilTextAnimComplete: true });
+        }, 500)
     }
     renderProfil() {
-        
         return (
             <div className="text-cover">
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <div className="text-container">
                         <TransitionGroup component={null} appear={true}>
                             <CSSTransition timeout={2000}
-                                onEntered={() => { setTimeout(() => {
-                                    this.setState({ profilTextAnimComplete: true })
-                                }, 500) }}
-                                classNames="moveX">
+                                classNames="moveX" onEntered={() => this.displaySentenceIncrement()}>
                                 <h1 className="ttl-bis big">
-                                    <ReactMarkdown source={this.props.profil.items[0].fields.profilText0} />
+                                    <ReactMarkdown source={this.props.profil.payload.items[0].fields.profilText0} />
                                 </h1>
                             </CSSTransition>
                         </TransitionGroup>
                         <div style={{ 'minHeight': '38px' }}>
                             {(this.state.profilTextAnimComplete) ?
-                                <SentenceIncrement sentenceIsLoadedCallback={this.sentanceIsLoaded} initialSentence={this.props.profil.items[0].fields.profilText2} />
+                                <SentenceIncrement
+                                    sentenceIsLoadedCallback={this.sentanceIsLoaded}
+                                    initialSentence={this.props.profil.payload.items[0].fields.profilText2} />
                                 : null}
                         </div>
                     </div>
@@ -81,7 +83,7 @@ class Profil extends Component {
                     cellSize={400}
                     xColors={['17ED78', '0C7F41', '19FF81', '064020', '16E574']}
                 />
-                {(profil) ? this.renderProfil() : null}
+                {(profil.payload) ? this.renderProfil() : null}
                 {(this.state.displaySeeMore) ?
                     <div className="see-more">
                         <span className="slowMoveY" onClick={() => this.goToSectionId("about")}>
@@ -99,7 +101,7 @@ class Profil extends Component {
 
 function mapStateToProps(state) {
     return {
-        profil: state.profil,
+        profil: state.profil
     }
 }
 

@@ -4,6 +4,7 @@ class SentenceIncrement extends Component {
     constructor(props) {
         super(props);
         this.state = { sentenceIncrement: "", sentenceIsLoaded: false }
+        this.interval;
     }
     componentDidMount() {
         const sentence = this.props.initialSentence.split('');
@@ -11,21 +12,21 @@ class SentenceIncrement extends Component {
 
         let cpt = 0;
         let cptMax = sentence.length;
-        const interval = setInterval(() => {
+        this.interval = setInterval(() => {
             if (cpt < cptMax) {
                 sentenceIncrement = sentenceIncrement + sentence[cpt];
                 this.setState({ sentenceIncrement: sentenceIncrement });
                 cpt++;
             } else {
-                stopInterval();
+                clearInterval(this.interval);
                 this.props.sentenceIsLoadedCallback(true);
                 this.setState({sentenceIsLoaded : true});
             }
         }, 50);
+    }
 
-        function stopInterval() {
-            clearInterval(interval);
-        }
+    componentWillUnmount(){
+        clearInterval(this.interval);
     }
 
     render() {

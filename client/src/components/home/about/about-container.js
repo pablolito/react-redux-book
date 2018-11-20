@@ -29,7 +29,7 @@ class AboutMe extends Component {
         )
     }
     renderExperienceItems() {
-        return this.orderExperienceItems(this.props.experiencePosts.items).map((data, index) => {
+        return this.orderExperienceItems(this.props.experiencePosts.payload.items).map((data, index) => {
             return <XpItem key={index} data={data.fields} />
         })
     }
@@ -43,27 +43,20 @@ class AboutMe extends Component {
             <section id="about" className="about-me pb-4 pt-4">
                 <SectionTitle data={{ title: "Profil" }} />
                 <div className="content-center">
-                    <div className="d-flex justify-content-center">
-                        <ReactMarkdown className="mb-4 hipster-text text-center" source={conf.aboutDescription} />
-                    </div>
-                    <div className="d-flex justify-content-center text-center">
-                        
-                        <ReactMarkdown className="hipster-text" source={conf.aboutDescription2} />
-                        
-                        {/* <div className="col col-xs-12 col-sm-6">
-                            <InViewMonitor onInView={() => this.displayBarValue()}>
-                                {conf.skills.map((item) => {
-                                    return this.renderBar(item);
-                                })}
-                            </InViewMonitor>
-                        </div> */}
-                    </div>
                     {
-                        (this.props.experiencePosts && this.props.experiencePosts.items.length > 0) ?
-                            <div className="d-flex justify-content-around flex-wrap pt-4 mb-4">
-                                {this.renderExperienceItems()}
+                        (this.props.experiencePosts.payload && !this.props.experiencePosts.isLoading && !this.props.experiencePosts.isInError) ?
+                            <div>
+                                <div className="d-flex justify-content-center">
+                                    <ReactMarkdown className="mb-4 hipster-text text-center" source={conf.aboutDescription} />
+                                </div>
+                                <div className="d-flex justify-content-center text-center">
+                                    <ReactMarkdown className="hipster-text" source={conf.aboutDescription2} />
+                                </div>
+                                <div className="d-flex justify-content-around flex-wrap pt-4 mb-4">
+                                    {this.renderExperienceItems()}
+                                </div>
                             </div>
-                            : null
+                        : null
                     }
                 </div>
             </section>

@@ -5,7 +5,7 @@ import { Textarea } from './contact-form-elements/textarea'
 import { sendContactForm } from './contact-action'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { ReCaptcha } from 'react-recaptcha-v3'
+// import { ReCaptcha } from 'react-recaptcha-v3'
 import SectionTitle from '../../shared/section-title';
 
 
@@ -16,9 +16,9 @@ const alphaNumeric = value =>
         : undefined
 
 class ContactForm extends Component {
-    verifyCallback = (recaptchaToken) => {
-        // Here you will get the final recaptchaToken!!!  
-    }
+    // verifyCallback = (recaptchaToken) => {
+    //     // Here you will get the final recaptchaToken!!!  
+    // }
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -52,11 +52,11 @@ class ContactForm extends Component {
                                 placeholder="Message"
                                 validate={[required]}
                             />
-                            <ReCaptcha
+                            {/* <ReCaptcha
                                 sitekey="6LcUunkUAAAAADXNfFouriy_vqNo6RlQUxH6HS1X"
                                 action='home'
                                 verifyCallback={this.verifyCallback}
-                            />
+                            /> */}
                         </div>
                         <div>
                             <button className="btn btn-primary text-uppercase mr-3" type="submit" disabled={submitting}>
