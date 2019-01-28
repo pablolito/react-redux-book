@@ -1,0 +1,24 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "CTF_SPACE_ID": {
+      "required": true
+    },
+    "CTF_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "name": "react-redux-book",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
