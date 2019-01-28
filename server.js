@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
 const favicon = require('express-favicon');
-require('dotenv').config({path:'./.env'});
 
 
 const app = express();
