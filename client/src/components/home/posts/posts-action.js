@@ -15,7 +15,7 @@ export const setFilterPosts = (filter) => {
 export const getPosts = () => {
     return function (dispatch) {
         dispatch({ type: AT_POST.IS_LOADING_POSTS });
-        axios.get(`${API.END_POINT}/spaces/${API.SPACE_ID}/entries?access_token=${API.TOKEN}&content_type=book`).then((response) => {
+        axios.get(`${API.END_POINT}/spaces/${API.SPACE_ID}/entries?access_token=${API.TOKEN}&content_type=book&order=-fields.year`).then((response) => {
             dispatch({
                 type: AT_POST.READ_POSTS,
                 payload: response.data
@@ -34,12 +34,12 @@ export const getPost = (id) => {
         dispatch({ type: AT_POST.IS_LOADING_POST });
         axios.get(`${API.END_POINT}/spaces/${API.SPACE_ID}/entries/${id}?access_token=${API.TOKEN}`).then((response) => {
             const postData = response.data;
-            axios(`${API.END_POINT}/spaces/${API.SPACE_ID}/assets/${postData.fields.pictures[0].sys.id}?access_token=${API.TOKEN}`).then((response) => {
+            axios(`${API.END_POINT}/spaces/${API.SPACE_ID}/assets/${postData.fields.cover.sys.id}?access_token=${API.TOKEN}`).then((response) => {
                 dispatch({
                     type: AT_POST.READ_POST,
                     payload: {
-                        data : postData,
-                        assetsData : response.data
+                        data: postData,
+                        assetsData: response.data
                     }
                 })
             }).catch((error) => {
@@ -57,15 +57,27 @@ export const getPost = (id) => {
     }
 }
 
+export const getAdditionalAssets = (id) => {
+    return function (dispatch) {
+        axios(`${API.END_POINT}/spaces/${API.SPACE_ID}/entries/?access_token=${API.TOKEN}&content_type=book&fields.pictures.sys.id=${id}`).then((response) => {
+            console.log(response.data.includes.Asset);
+            dispatch({
+                type: AT_POST.GET_ADDITIONAL_ASSETS,
+                additionalAssets: response.data.includes.Asset
+            })
+        })
+    }
+}
+
 export const resetPost = () => {
     return function (dispatch) {
         dispatch({
             type: AT_POST.READ_POST,
-            payload: null
+            payload: null,
         })
         dispatch({
-            type: AT_POST.GET_POST_ASSETS,
-            payload: null
+            type: AT_POST.GET_ADDITIONAL_ASSETS,
+            additionalAssets: null
         })
     }
- }
+}

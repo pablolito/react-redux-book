@@ -49,7 +49,7 @@ class PostsList extends Component {
                         return (
                             <div key={post.sys.id} className="item-project">
                                 <Link to={`/projet/${post.sys.id}/${utils.formatTitleUrl(post.fields.title)}`}>
-                                    <PostsListItem asset={this.getAssetUrl(post.fields.pictures[0].sys.id)} data={post.fields} />
+                                    <PostsListItem asset={this.getAssetUrl(post.fields.cover.sys.id)} data={post.fields} />
                                 </Link>
                             </div>
                         )
@@ -59,7 +59,6 @@ class PostsList extends Component {
         );
     }
     render() {
-        console.log("render");
         return (
             <section id="project" className="project pt-4 pb-4">
                 <SectionTitle data={{ title: "Découvrir mes derniers projets" }} />
@@ -74,7 +73,6 @@ class PostsList extends Component {
 }
 
 function mapStateToProps(state) {
-    //console.log(state);
     return {
         postsList: state.postsList,
     }

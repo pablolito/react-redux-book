@@ -1,20 +1,24 @@
 
 import React, { Component } from 'react'
-import { getPost, resetPost } from '../home/posts/posts-action'
+import { getPost, resetPost, getAdditionalAssets } from '../home/posts/posts-action'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Loader from '../shared/loader'
+import InViewMonitor from 'react-inview-monitor'
 
 
 class Post extends Component {
-
     componentDidMount() {
         this.props.getPost(this.props.match.params.id);
     }
     componentWillUnmount() {
         this.props.resetPost();
     }
-
+    getAdditionalAsset() {
+        if(!this.props.post.additionalAssets){
+            this.props.getAdditionalAssets(this.props.post.payload.data.fields.pictures[0].sys.id);
+        }
+    }
     renderPost() {
         const { post } = this.props;
         const postData = post.payload.data;
@@ -28,9 +32,13 @@ class Post extends Component {
             </div>
             <div className="container-page">
                 {postData.fields.description}
+
             </div>
         </div>
 
+    }
+    renderItemAsset(asset, index){
+        return <div className="d-inline-block mb-4 w-75 light-shadow" key={index}><img width="100%" height="auto" src={asset.fields.file.url} /></div>
     }
     render() {
         if (this.props.post.isLoading) {
@@ -40,17 +48,35 @@ class Post extends Component {
             <div>
                 {(this.props.post.payload) ?
                     this.renderPost()
-                : 
-                (this.props.post.isInError) ?
-                <div className="vh-100 d-flex justify-content-center align-items-center">
-                    <div>
-                    <h1>Oups !!!</h1>
-                    <h3>Erreur lors du chargement des données !!!</h3>
-                    </div>
-                </div>
-                : null
+                    :
+                    (this.props.post.isInError) ?
+                        <div className="vh-100 d-flex justify-content-center align-items-center">
+                            <div>
+                                <h1>Oups !!!</h1>
+                                <h3>Erreur lors du chargement des données !!!</h3>
+                            </div>
+                        </div>
+                        : null
                 }
+                <div>
+                    <InViewMonitor onInView={() => this.getAdditionalAsset()}>
+                        <div className="text-center" style={{minHeight: '200px'}}>
+                            {
+                                (this.props.post.additionalAssets) ?
+                                this.props.post.additionalAssets.map((asset, i)=>{
+                                    return (
+                                        (this.props.post.payload.data.fields.cover.sys.id !== asset.sys.id) ?
+                                        this.renderItemAsset(asset, i) 
+                                        : null
+                                        )
+                                })
+                                : null
+                            }
+                        </div>
+                    </InViewMonitor>
+                </div>
             </div>
+
         )
     }
 }
@@ -62,7 +88,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getPost, resetPost }, dispatch)
+    return bindActionCreators({ getPost, resetPost, getAdditionalAssets }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

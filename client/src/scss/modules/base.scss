@@ -42,6 +42,11 @@ a{
     outline: none;
 }
 
+.light-shadow{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
 
 .close {
     position: relative;
@@ -398,7 +403,7 @@ header{
 }
 
 .post-cover{
-    background-attachment: fixed;
+    //background-attachment: fixed;
     background-size: cover;
     width: 100%;
     height: 100vh;
@@ -424,6 +429,7 @@ header{
 // book section
 .item-project{
     width: 50%;
+    background-color: #FFF;
 }
 .mea-project{
     position: relative;
@@ -432,7 +438,7 @@ header{
     overflow: hidden;
     max-height: 300px;
     img{
-        transition: all 0.3s ease-in;
+        transition: all 0.8s ease-in;
         width: 100%;
     }
     &:hover{

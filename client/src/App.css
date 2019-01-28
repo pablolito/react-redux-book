@@ -6118,6 +6118,10 @@ a {
 :focus {
   outline: none; }
 
+.light-shadow {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15); }
+
 .close {
   position: relative;
   width: 32px;
@@ -6416,7 +6420,6 @@ header {
         cursor: pointer; }
 
 .post-cover {
-  background-attachment: fixed;
   background-size: cover;
   width: 100%;
   height: 100vh;
@@ -6436,7 +6439,8 @@ header {
   padding: 3rem; }
 
 .item-project {
-  width: 50%; }
+  width: 50%;
+  background-color: #FFF; }
 
 .mea-project {
   position: relative;
@@ -6445,7 +6449,7 @@ header {
   overflow: hidden;
   max-height: 300px; }
   .mea-project img {
-    transition: all 0.3s ease-in;
+    transition: all 0.8s ease-in;
     width: 100%; }
   .mea-project:hover {
     filter: none; }

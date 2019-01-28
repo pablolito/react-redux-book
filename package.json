@@ -15,6 +15,7 @@
     "client": "node start-client.js"
   },
   "devDependencies": {
+    "dotenv": "^6.2.0",
     "npm-run-all": "^4.1.3"
   }
 }

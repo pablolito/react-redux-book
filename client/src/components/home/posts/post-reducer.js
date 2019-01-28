@@ -16,14 +16,16 @@ export const postsListReducer = ( state={payload: null, filter:''}, action) => {
 }
 
 
-export const postReducer = (state={}, action) => {
+export const postReducer = (state={payload: null, additionalAssets: null}, action) => {
     switch(action.type){
         case AT_POST.IS_LOADING_POST :
         return {...state, isLoading: true}
         case AT_POST.READ_POST :
         return {...state, payload : action.payload, isInError: false, isLoading: false}
+        case AT_POST.GET_ADDITIONAL_ASSETS :
+        return {...state, additionalAssets: action.additionalAssets}
         case AT_GLOBAL.IS_IN_ERROR :
-        return {...state, isInError: true, isLoading: false}
+        return {...state, payload: null, isInError: true, isLoading: false}
         default:
         return state;
     }
