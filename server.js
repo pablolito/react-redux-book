@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
+const favicon = require('express-favicon');
 require('dotenv').config({path:'./.env'});
 
 
@@ -10,13 +11,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); 
 
-//app.set("port", process.env.PORT || 3001);
+app.use(favicon(__dirname + 'client/build/favicon.ico'));
 
-// // Express only serves static assets in production
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-
+app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 require('./app/routes.js')(app);
