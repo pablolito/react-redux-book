@@ -6,7 +6,7 @@ client/node_modules
 coverage
 
 # production
-build
+#build
 
 conf.js
 client/conf.js
