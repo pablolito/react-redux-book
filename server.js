@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
-const favicon = require('express-favicon');
+//const favicon = require('express-favicon');
 
 
 const app = express();
@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); 
 
-app.use(favicon(__dirname + 'client/build/favicon.ico'));
+//app.use(favicon(__dirname + 'client/build/favicon.ico'));
 
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 require('./app/routes.js')(app);
