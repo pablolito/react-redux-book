@@ -9,8 +9,6 @@ module.exports = function(app) {
         sendingEmail(req.body, function(mailIsSending){
             if(mailIsSending){
                 res.send("Merci votre message a bien été envoyé");
-            }else{
-                res.send("Oups une erreur s'est produite lors de l'envoi du message");
             }
             
         })
