@@ -2,8 +2,11 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const dotenv = require('dotenv');
-dotenv.config();
+if (process.env.NODE_ENV !== 'production'){
+  const dotenv = require('dotenv');
+  dotenv.config();
+}
+
 
 const app = express();
 app.use( bodyParser.json() );
