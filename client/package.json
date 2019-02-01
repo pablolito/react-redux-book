@@ -2,12 +2,10 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "scripts": {
-    "deploy": "now && now alias",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
-    "server": "node server.js",
     "build-css": "node-sass-chokidar src/scss/App.scss -o src/",
     "watch-css": "yarn build-css && node-sass-chokidar src/scss/App.scss -o src/ --watch --recursive",
     "test": "react-scripts test --env=jsdom",

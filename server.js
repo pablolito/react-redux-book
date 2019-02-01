@@ -1,19 +1,23 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
-//const favicon = require('express-favicon');
+
+if (process.env.NODE_ENV !== 'production'){
+  const dotenv = require('dotenv');
+  dotenv.config();
+}
 
 
 const app = express();
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
 
-//app.use(favicon(__dirname + 'client/build/favicon.ico'));
 
-//app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+}
 
 require('./app/routes.js')(app);
 
@@ -22,4 +26,7 @@ app.get('/*', function (req, res) {
 });
 
 
-app.listen(process.env.PORT || 3001);
+app.listen(process.env.PORT, () =>{
+  console.log("NODE_EN", process.env.NODE_ENV);
+  console.log("PORT", process.env.PORT);
+});
