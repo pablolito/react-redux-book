@@ -6,6 +6,9 @@ module.exports = function (data, sendingCallback) {
 
     nodemailer.createTestAccount((err, account) => {
 
+        console.log(conf.MAILER.USER);
+        console.log(data);
+
         let transporter = nodemailer.createTransport({
             host: conf.MAILER.SMTP,
             port: conf.MAILER.PORT,
