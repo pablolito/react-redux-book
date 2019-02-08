@@ -38,7 +38,9 @@ class Post extends Component {
 
     }
     renderItemAsset(asset, index){
-        return <div className="d-inline-block mb-4 w-75 light-shadow" key={index}><img width="100%" height="auto" src={asset.fields.file.url} /></div>
+        return <div className="d-inline-block mb-big w-75 light-shadow" key={index}>
+                <img width="100%" height="auto" src={asset.fields.file.url} />
+            </div>
     }
     render() {
         if (this.props.post.isLoading) {
@@ -58,9 +60,9 @@ class Post extends Component {
                         </div>
                         : null
                 }
-                <div>
+                <div style={{minHeight: '200px'}}>
                     <InViewMonitor onInView={() => this.getAdditionalAsset()}>
-                        <div className="text-center" style={{minHeight: '200px'}}>
+                        <div className="text-center">
                             {
                                 (this.props.post.additionalAssets) ?
                                 this.props.post.additionalAssets.map((asset, i)=>{

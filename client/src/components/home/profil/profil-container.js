@@ -44,7 +44,7 @@ class Profil extends Component {
     displaySentenceIncrement() {
         setTimeout(() => {
             this.setState({ profilTextAnimComplete: true });
-        }, 500)
+        }, 2000)
     }
     renderProfil() {
         return (
@@ -52,8 +52,8 @@ class Profil extends Component {
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <div className="text-container">
                         <TransitionGroup component={null} appear={true}>
-                            <CSSTransition timeout={2000}
-                                classNames="moveX" onEntered={() => this.displaySentenceIncrement()}>
+                            <CSSTransition timeout={1000}
+                                classNames="fade-fast" onEntered={() => this.displaySentenceIncrement()}>
                                 <h1 className="ttl-bis big">
                                     <ReactMarkdown source={this.props.profil.payload.items[0].fields.profilText0} />
                                 </h1>

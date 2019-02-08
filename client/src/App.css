@@ -7851,15 +7851,6 @@ textarea.form-control {
 header .fade-enter-done {
   transition: opacity 1000ms ease-in; }
 
-.profil h1 {
-  transform: translateX(-100%);
-  opacity: 0; }
-
-.profil .moveX-enter-done {
-  transform: translateX(0%);
-  transition: all 0.5s ease-in;
-  opacity: 1; }
-
 @keyframes slowMoveY {
   from {
     top: 0; }
@@ -7913,10 +7904,6 @@ a {
 
 :focus {
   outline: none; }
-
-.light-shadow {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15); }
 
 .close {
   position: relative;
@@ -8007,7 +7994,7 @@ a {
   color: #e57d0d; }
 
 .ttl {
-  font-family: 'Fira Sans', sans-serif; }
+  font-family: 'Playfair-Display', serif; }
 
 .ttl-bis {
   font-family: 'Roboto', sans-serif; }
@@ -8020,6 +8007,9 @@ a {
 
 .ttl.big, .ttl-bis.big {
   font-size: 4rem; }
+
+.mb-big {
+  margin-bottom: 3rem; }
 
 .btn {
   padding: 0.8rem;
@@ -8078,15 +8068,9 @@ header {
       color: #1e1e1e; }
     header.fading-on .icon-github {
       fill: #1e1e1e; }
-    header.fading-on .logo {
-      color: #1e1e1e;
-      font-size: 1.5rem;
-      transition: all ease-in 0.2s;
-      font-family: 'Fira Sans', sans-serif; }
-      header.fading-on .logo span {
-        font-size: 1.5rem; }
   header .logo {
-    font-size: 1.7rem; }
+    font-size: 1.5rem;
+    font-family: 'Playfair-Display', serif; }
   header nav li {
     margin-right: 1rem;
     font-size: 1.1rem; }
@@ -8260,9 +8244,8 @@ header {
     display: inline-block;
     margin-bottom: 2rem; }
   .mea-project h3 {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 2px #1e1e1e; }
+    font-size: 1.7rem;
+    text-shadow: 1px 1px 1px #1e1e1e; }
   .mea-project .contain {
     position: absolute;
     display: block;

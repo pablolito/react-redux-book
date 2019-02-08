@@ -16,17 +16,17 @@ header {
     }
 }
 
-.profil{
-    h1{
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-}
-.profil .moveX-enter-done{
-    transform: translateX(0%);
-    transition: all 0.5s ease-in;
-    opacity: 1;
-}
+// .profil{
+//     h1{
+//         transform: translateX(-100%);
+//         opacity: 0;
+//     }
+// }
+// .profil .moveX-enter-done{
+//     transform: translateX(0%);
+//     transition: all 0.5s ease-in;
+//     opacity: 1;
+// }
 
 
 @keyframes slowMoveY {

@@ -14,6 +14,12 @@ class App extends Component {
     super(props)
     this.state = {activeSection:null}
   }
+
+  componentDidMount(){
+    window.onblur = function () { document.title = "Merci d'être passé"; }
+    window.onfocus = function () { document.title = "Maxime Falguier portfolio web"; }
+  }
+
   callbackActiveSection(id){
     this.setState({activeSection:id})
   }

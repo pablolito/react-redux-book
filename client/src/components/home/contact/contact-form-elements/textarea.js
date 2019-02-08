@@ -8,10 +8,10 @@ export const Textarea = ({
   }) => (
     <div>
       <div>
-        <textarea {...input} className={className}>{placeholder}</textarea>
+        <textarea {...input} className={className} placeholder={placeholder}></textarea>
         {touched &&
-          ((error && <span className="error">{error}</span>) ||
-            (warning && <span className="warning">{warning}</span>))}
+          ((error && <span className="error mb-3">{error}</span>) ||
+            (warning && <span className="warning mb-3">{warning}</span>))}
       </div>
     </div>
   )

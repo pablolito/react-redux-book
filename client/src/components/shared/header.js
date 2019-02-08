@@ -12,7 +12,7 @@ import conf from '../../conf'
 class Header extends Component {
     constructor(props) {
         super(props)
-        this.state = { enableFadingBar: false, activeItemId: 'profil' }
+        this.state = { enableFadingBar: false, activeItemId: '' }
         this.goBack = this.goBack.bind(this);
     }
     componentDidUpdate(prevProps) {
@@ -23,6 +23,9 @@ class Header extends Component {
     componentDidMount() {
 
         window.addEventListener("scroll", debounce((e) => {
+            // if(this.state.activeItemId !==""){
+            //     this.setState({activeItemId:""});
+            // }
             if (utils.scrollTop() > this.refHeader.clientHeight) {
                 if (!this.state.enableFadingBar) {
                     this.setState({ enableFadingBar: true });
@@ -61,14 +64,11 @@ class Header extends Component {
                 <TransitionGroup appear={true}>
                     <CSSTransition classNames="fade" timeout={0}>
                         <div className="d-flex justify-content-between align-items-center">
-                            {(this.props.router.location.pathname === "/") ?
-                                <div className="logo">
-                                    {<Link to="/">
-                                        <span>{`${'<'}`}</span>ReactReduxBook<span>{`${'/>'}`}</span>
-                                    </Link>}
-                                </div>
-                                : <div></div>
-                            }
+                            <div className="logo">
+                                {<Link to="/">
+                                    Maxime Falguier
+                                </Link>}
+                            </div>
                             {(this.props.router.location.pathname === "/") ?
                                 <nav>
                                     <ul className="d-flex align-items-center">

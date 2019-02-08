@@ -60,10 +60,12 @@ export const getPost = (id) => {
 export const getAdditionalAssets = (id) => {
     return function (dispatch) {
         axios(`${API.END_POINT}/spaces/${API.SPACE_ID}/entries/?access_token=${API.TOKEN}&content_type=book&fields.pictures.sys.id=${id}`).then((response) => {
-            console.log(response.data.includes.Asset);
+            const orderedList = response.data.includes.Asset.sort(function (a, b) {
+                    return (a.fields.title < b.fields.title) ? -1 : ((b.fields.title < a.fields.title) ? 1 : 0);
+                  });
             dispatch({
                 type: AT_POST.GET_ADDITIONAL_ASSETS,
-                additionalAssets: response.data.includes.Asset
+                additionalAssets: orderedList
             })
         })
     }

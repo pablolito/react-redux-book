@@ -5,8 +5,8 @@ import { Textarea } from './contact-form-elements/textarea'
 import { sendContactForm } from './contact-action'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-// import { ReCaptcha } from 'react-recaptcha-v3'
-import SectionTitle from '../../shared/section-title';
+import Captcha from './contact-form-elements/recaptcha'
+import SectionTitle from '../../shared/section-title'
 
 
 const required = value => (value || typeof value === 'number' ? undefined : 'Ce champ est requis')
@@ -16,9 +16,6 @@ const alphaNumeric = value =>
         : undefined
 
 class ContactForm extends Component {
-    // verifyCallback = (recaptchaToken) => {
-    //     // Here you will get the final recaptchaToken!!!  
-    // }
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -49,14 +46,14 @@ class ContactForm extends Component {
                                 name="message"
                                 className="form-control mb-3"
                                 component={Textarea}
-                                placeholder="Message"
+                                placeholder="Message *"
                                 validate={[required]}
                             />
-                            {/* <ReCaptcha
-                                sitekey="6LcUunkUAAAAADXNfFouriy_vqNo6RlQUxH6HS1X"
-                                action='home'
-                                verifyCallback={this.verifyCallback}
-                            /> */}
+                            <Field
+                                name="captcha"
+                                className="form-control mb-3"
+                                component={Captcha}
+                                validate={[required]} />
                         </div>
                         <div>
                             <button className="btn btn-primary text-uppercase mr-3" type="submit" disabled={submitting}>

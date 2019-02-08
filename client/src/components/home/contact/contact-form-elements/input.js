@@ -11,8 +11,8 @@ export const Input = ({
       <div>
         <input {...input} placeholder={placeholder} type={type} className={className} />
         {touched &&
-          ((error && <span className="error">{error}</span>) ||
-            (warning && <span className="warning">{warning}</span>))}
+          ((error && <span className="error mb-3">{error}</span>) ||
+            (warning && <span className="warning mb-3">{warning}</span>))}
       </div>
     </div>
   )
