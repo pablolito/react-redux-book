@@ -23,9 +23,6 @@ class Header extends Component {
     componentDidMount() {
 
         window.addEventListener("scroll", debounce((e) => {
-            // if(this.state.activeItemId !==""){
-            //     this.setState({activeItemId:""});
-            // }
             if (utils.scrollTop() > this.refHeader.clientHeight) {
                 if (!this.state.enableFadingBar) {
                     this.setState({ enableFadingBar: true });

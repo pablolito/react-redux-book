@@ -2,12 +2,6 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const path = require('path');
 
-if (process.env.NODE_ENV !== 'production'){
-  const dotenv = require('dotenv');
-  dotenv.config();
-}
-
-
 const app = express();
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded({
@@ -15,9 +9,12 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== 'production'){
+  const dotenv = require('dotenv');
+  dotenv.config();
   app.use(express.static(path.join(__dirname, 'client/build')));
 }
+
 
 require('./app/routes.js')(app);
 

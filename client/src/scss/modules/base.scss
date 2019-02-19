@@ -252,6 +252,11 @@ header{
         }
     }
 }
+.home{
+    h2.ttl-bis{
+        padding: 0 1rem;
+    }
+}
 
 // profil section
 .bgd-profil{
@@ -267,9 +272,6 @@ header{
 }
 
 // about
-.about-me{
-    
-}
 .bar{
     background-color: #F1F1F1;
     font-size: 1rem;
@@ -413,6 +415,9 @@ header{
     letter-spacing: 0.1rem;
     margin: 0 auto;
     padding: 3rem;
+    p{
+        margin-bottom: 1rem;
+    }
 }
 
 
@@ -476,6 +481,7 @@ footer{
     .abs-text{
         position: absolute;
         width: 100%;
+        padding: 0 2rem;
         bottom: 2rem;
     }
 }

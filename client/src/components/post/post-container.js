@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Loader from '../shared/loader'
 import InViewMonitor from 'react-inview-monitor'
+import ReactMarkdown from 'react-markdown'
+
 
 
 class Post extends Component {
@@ -31,8 +33,8 @@ class Post extends Component {
                 </div>
             </div>
             <div className="container-page">
-                {postData.fields.description}
-
+                <ReactMarkdown 
+                    source={postData.fields.description}  />
             </div>
         </div>
 
